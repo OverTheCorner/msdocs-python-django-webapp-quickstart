@@ -13,9 +13,6 @@ variables:
   # Web app name
   webAppName: 'msdocs-python-webapp-quickstart-RGB'
 
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-
   # Environment name
   environmentName: 'msdocs-python-webapp-quickstart-RGB'
 
@@ -30,8 +27,7 @@ stages:
   displayName: Build stage
   jobs:
   - job: BuildJob
-    pool:
-      vmImage: $(vmImageName)
+    pool: OverTheCornerVMScaleSet
     steps:
     - task: UsePythonVersion@0
       inputs:
@@ -66,8 +62,7 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
-    pool:
-      vmImage: $(vmImageName)
+    pool: OverTheCornerVMScaleSet
     environment: $(environmentName)
     strategy:
       runOnce:
